@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <form id="entryForm">
+        <label for="entry">ENTRY</label>
+        <input id="entryInput"></input><br>
+        <button type="button" onclick="addEntry()">Add Entry</button>
+        <button id="summaryButton" type="button" onclick="showSummary()">Summary</button>
+    </form>
+    <h1>ENTRIES</h1>
+    <ul id="entryList">
+
+    </ul>
+
+    <h1>Summary</h1>
+    <div id="summary">
+
+    </div>
+
+    <script></script>
+    <script>
+        function addEntry() {
+            const entryInput = document.getElementById('entryInput');
+            const entryName = entryInput.value.trim();
+
+            if (entryName === '') {
+                alert('Please fill in all the data.');
+            } else {
+                const entryData = {
+                    name: entryName
+                };
+
+                const entries = JSON.parse(localStorage.getItem('entries')) || [];
+                entries.push(entryData);
+                localStorage.setItem('entries', JSON.stringify(entries));
+
+                const entryList = document.getElementById('entryList');
+                const entryElement = document.createElement('li');
+                entryElement.innerText = entryName;
+                entryList.appendChild(entryElement);
+
+                entryInput.value = '';
+                alert('Entry added successfully.');
+            }
+        }
+
+        function showSummary() {
+            const entries = JSON.parse(localStorage.getItem('entries')) || [];
+            const summaryDiv = document.getElementById('summary');
+            summaryDiv.innerHTML = '';
+
+            const summaryHeader = document.createElement('h3');
+            summaryHeader.innerText = 'Number of Entries: ' + entries.length;
+            summaryDiv.appendChild(summaryHeader);
+            const entryParagraph = document.createElement('p');
+            entryParagraph.innerText = entry.name;
+            summaryDiv.appendChild(entryParagraph);
+
+
+        }
+    </script>
+</body>
+
+</html>
